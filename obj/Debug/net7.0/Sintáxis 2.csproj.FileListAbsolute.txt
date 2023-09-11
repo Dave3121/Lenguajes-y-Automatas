@@ -1,0 +1,15 @@
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\bin\Debug\net7.0\Sintáxis 2.exe
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\bin\Debug\net7.0\Sintáxis 2.deps.json
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\bin\Debug\net7.0\Sintáxis 2.runtimeconfig.json
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\bin\Debug\net7.0\Sintáxis 2.dll
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\bin\Debug\net7.0\Sintáxis 2.pdb
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\Sintáxis 2.csproj.AssemblyReference.cache
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\Sintáxis 2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\Sintáxis 2.AssemblyInfoInputs.cache
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\Sintáxis 2.AssemblyInfo.cs
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\Sintáxis 2.csproj.CoreCompileInputs.cache
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\Sintáxis 2.dll
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\refint\Sintáxis 2.dll
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\Sintáxis 2.pdb
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\Sintáxis 2.genruntimeconfig.cache
+C:\Users\daveg\OneDrive\Documentos\Lenguajes y Autómatas\Sintáxis 2\obj\Debug\net7.0\ref\Sintáxis 2.dll
