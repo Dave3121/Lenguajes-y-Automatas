@@ -223,12 +223,12 @@ namespace Sintaxis_2
                 if (getContenido() == "++")
                 {
                     match("++");
-                    Modifica(variable,valor);
+                    Modifica(variable,valor+1);
                 }
                 else
                 {
                     match("--");
-                    Modifica(variable,valor);
+                    Modifica(variable,valor-1);
                 }
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
@@ -237,6 +237,7 @@ namespace Sintaxis_2
                 if (getContenido() == "+=")
                 {
                     match("+=");
+                    Modifica(variable,valor);
                 }
                 else if (getContenido() == "-=")
                 {
@@ -363,7 +364,7 @@ namespace Sintaxis_2
             bool evaluacion = Condicion() && ejecuta;
             Console.WriteLine(evaluacion);
             match(")");
-            if (getContenido() == "{")
+            if (getContenido() == "{" && evaluacion == true)
             {
                 BloqueInstrucciones(evaluacion);
             }
@@ -371,7 +372,7 @@ namespace Sintaxis_2
             {
                 Instruccion(evaluacion);
             }
-            if (getContenido() == "else" && Condicion() == false)
+            if (getContenido() == "else")
             {
                 match("else");
 
@@ -412,6 +413,7 @@ namespace Sintaxis_2
                     string captura = "" + Console.ReadLine();
                     float resultado = float.Parse(captura);
                     Modifica(variable,resultado);
+                    stack.Push(resultado);
                 }
             }
             match(")");

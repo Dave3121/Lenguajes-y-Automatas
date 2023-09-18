@@ -1,5 +1,10 @@
 Autor: David Arturo Gutiérrez Lugo
-18/09/2023 12:46:38 p. m.
+18/09/2023 01:55:34 p. m.
 a =  3 5 + 8 * 10 4 - 2 / - = 61
 b =  19 = 19
- 2 % 0 10Error: de sintaxis, se espera un <(> en la linea 19 columna 13
+ 2 % 0 10a =  70 = 70
+ 11a =  0 = 0
+b =  = 20
+c =  = 3
+d =  3 = 3
+c = Error: de sintaxis, se espera un <--> en la linea 34 columna 8
