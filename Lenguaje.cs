@@ -371,7 +371,7 @@ namespace Sintaxis_2
             {
                 Instruccion(evaluacion);
             }
-            if (getContenido() == "else")
+            if (getContenido() == "else" && Condicion() == false)
             {
                 match("else");
 
@@ -394,10 +394,7 @@ namespace Sintaxis_2
             if (ejecuta)
             {
                 string cadena = getContenido();
-                cadena = cadena.TrimStart('\"');
-                cadena = cadena.TrimEnd('\"');
-                cadena = cadena.Replace("\n", Environment.NewLine);
-                cadena = cadena.Replace("\t", "\t");
+                cadena = cadena.Replace("\n", Environment.NewLine).Replace("\t", "\t").TrimStart('\"').TrimEnd('\"');
                 Console.Write(cadena);
             }
             match(Tipos.Cadena);
