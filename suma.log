@@ -1,5 +1,10 @@
 Autor: Guillermo Fernandez Romero
 Fecha: 3-Mayo-2023 15:09
 a =  3 5 + 8 * 10 4 - 2 / - = 61
-b =  8 = 8
- 1 1 1 1 2 2 3 3 4 4Error: de sintaxis, se espera un <)> en la linea 22 columna 15
+b =  19 = 19
+ 2 % 0 10a =  70 = 70
+ 11a =  0 = 0
+b =  = 19
+c =  = 10
+d =  3 = 3
+c = Error: de sintaxis, se espera un <--> en la linea 34 columna 8

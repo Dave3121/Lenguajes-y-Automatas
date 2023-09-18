@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\daveg\\OneDrive\\Documentos\\Lenguajes y Autómatas\\Sintáxis 2\\Sintáxis 2.csproj",
+      "projectUniqueName": "C:\\Users\\daveg\\OneDrive\\Documentos\\Lenguajes y Autómatas\\Lenguajes-y-Automatas\\Sintáxis 2.csproj",
       "projectName": "Sintáxis 2",
-      "projectPath": "C:\\Users\\daveg\\OneDrive\\Documentos\\Lenguajes y Autómatas\\Sintáxis 2\\Sintáxis 2.csproj",
+      "projectPath": "C:\\Users\\daveg\\OneDrive\\Documentos\\Lenguajes y Autómatas\\Lenguajes-y-Automatas\\Sintáxis 2.csproj",
       "packagesPath": "C:\\Users\\daveg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\daveg\\OneDrive\\Documentos\\Lenguajes y Autómatas\\Sintáxis 2\\obj\\",
+      "outputPath": "C:\\Users\\daveg\\OneDrive\\Documentos\\Lenguajes y Autómatas\\Lenguajes-y-Automatas\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\daveg\\AppData\\Roaming\\NuGet\\NuGet.Config"
