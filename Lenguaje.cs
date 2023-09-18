@@ -12,7 +12,6 @@ using System.Threading.Tasks;
                      uso de la variable
                      Icremento(), Printf(), Factor() y usar getValor y Modifica
                      Levantar una excepcion en scanf() cuando se capture un string
-    Requerimiento 4: Implemenar la ejecución del ELSE
 */
 
 namespace Sintaxis_2
