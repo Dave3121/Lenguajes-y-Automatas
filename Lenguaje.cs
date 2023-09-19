@@ -212,6 +212,10 @@ namespace Sintaxis_2
             log.Write(getContenido() + " = ");
             string variable = getContenido();
             float valor = getValor(variable);
+            if (!Existe(getContenido()))
+            {
+                throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
+            }
             match(Tipos.Identificador);
             if (getContenido() == "=")
             {
@@ -346,13 +350,19 @@ namespace Sintaxis_2
             match(Tipos.Identificador);
             if (getContenido() == "++")
             {
+                string variable=getContenido();
+                float valor=getValor(variable);
                 match("++");
-                //stack.Push();
+                valor++;
+                stack.Push(valor);
             }
             else
             {
+                string variable=getContenido();
+                float valor=getValor(variable);
                 match("--");
-                //stack.Push();
+                valor--;
+                stack.Push(valor);
             }
         }
         //Condicion -> Expresion OperadorRelacional Expresion
