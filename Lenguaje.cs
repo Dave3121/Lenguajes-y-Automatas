@@ -221,6 +221,7 @@ namespace Sintaxis_2
             {
                 match("=");
                 Expresion();
+                stack.Pop();
             }
             else if (getClasificacion() == Tipos.IncrementoTermino)
             {
@@ -228,13 +229,11 @@ namespace Sintaxis_2
                 {
                     match("++");
                     valor++;
-                    stack.Push(valor);
                 }
                 else
                 {
                     match("--");
                     valor--;
-                    stack.Push(valor);
                 }
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
@@ -245,7 +244,6 @@ namespace Sintaxis_2
                     match("+=");
                     float valorAnterior = stack.Pop();
                     valor+=valorAnterior;
-                    stack.Push(valor);
 
                 }
                 else if (getContenido() == "-=")
@@ -253,28 +251,24 @@ namespace Sintaxis_2
                     match("-=");
                     float valorAnterior = stack.Pop();
                     valor-=valorAnterior;
-                    stack.Push(valor);
                 }
                 else if (getContenido() == "*=")
                 {
                     match("*=");
                     float valorAnterior = stack.Pop();
                     valor*=valorAnterior;
-                    stack.Push(valor);
                 }
                 else if (getContenido() == "/=")
                 {
                     match("/=");
                     float valorAnterior = stack.Pop();
                     valor/=valorAnterior;
-                    stack.Push(valor);
                 }
                 else if (getContenido() == "%=")
                 {
                     match("%=");
                     float valorAnterior = stack.Pop();
                     valor%=valorAnterior;
-                    stack.Push(valor);
                 }
                 Expresion();
             }
@@ -435,15 +429,7 @@ namespace Sintaxis_2
                 {
                     throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
                 }
-                string variable = getContenido();
                 match(Tipos.Identificador);
-                if (ejecuta)
-                {
-                    string captura = "" + Console.ReadLine();
-                    float resultado = float.Parse(captura);
-                    Modifica(variable,resultado);
-                    stack.Push(resultado);
-                }
             }
             match(")");
             match(";");
