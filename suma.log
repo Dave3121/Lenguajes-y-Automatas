@@ -1,3 +1,10 @@
 Autor: David Arturo Gutiérrez Lugo
-19/09/2023 12:43:28 p. m.
-Error: de sintaxis, la variable <>> no está declarada en la linea 1 columna 18
+19/09/2023 01:12:53 p. m.
+a =  3 5 + 8 * 10 4 - 2 / - = 61
+b =  19 = 19
+ 2 % 0 10a =  70 = 70
+ 11a =  0 = 0
+b =  = 20
+c =  = 6
+d =  3 = 3
+c = Error: de sintaxis, se espera un <--> en la linea 34 columna 8

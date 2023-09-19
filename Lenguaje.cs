@@ -465,9 +465,16 @@ namespace Sintaxis_2
             if (ejecuta)
             {
                 string captura = "" + Console.ReadLine();
+                try
+                {
                 float resultado = float.Parse(captura);
                 Modifica(variable,resultado);
                 stack.Push(resultado);
+                }
+                catch(Exception e)
+                {
+                    throw new Error("Tipo de dato incorrecto", log, linea, columna);
+                }
             }
             match(")");
             match(";");
