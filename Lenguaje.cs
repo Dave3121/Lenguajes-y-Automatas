@@ -223,12 +223,14 @@ namespace Sintaxis_2
                 if (getContenido() == "++")
                 {
                     match("++");
-                    Modifica(variable,valor+1);
+                    valor++;
+                    stack.Push(valor);
                 }
                 else
                 {
                     match("--");
-                    Modifica(variable,valor-1);
+                    valor--;
+                    stack.Push(valor);
                 }
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
@@ -237,23 +239,38 @@ namespace Sintaxis_2
                 if (getContenido() == "+=")
                 {
                     match("+=");
-                    Modifica(variable,valor);
+                    float valorAnterior = stack.Pop();
+                    valor+=valorAnterior;
+                    stack.Push(valor);
+
                 }
                 else if (getContenido() == "-=")
                 {
                     match("-=");
+                    float valorAnterior = stack.Pop();
+                    valor-=valorAnterior;
+                    stack.Push(valor);
                 }
                 else if (getContenido() == "*=")
                 {
                     match("*=");
+                    float valorAnterior = stack.Pop();
+                    valor*=valorAnterior;
+                    stack.Push(valor);
                 }
                 else if (getContenido() == "/=")
                 {
                     match("/=");
+                    float valorAnterior = stack.Pop();
+                    valor/=valorAnterior;
+                    stack.Push(valor);
                 }
                 else if (getContenido() == "%=")
                 {
                     match("%=");
+                    float valorAnterior = stack.Pop();
+                    valor%=valorAnterior;
+                    stack.Push(valor);
                 }
                 Expresion();
             }
@@ -330,10 +347,12 @@ namespace Sintaxis_2
             if (getContenido() == "++")
             {
                 match("++");
+                //stack.Push();
             }
             else
             {
                 match("--");
+                //stack.Push();
             }
         }
         //Condicion -> Expresion OperadorRelacional Expresion
@@ -364,7 +383,7 @@ namespace Sintaxis_2
             bool evaluacion = Condicion() && ejecuta;
             Console.WriteLine(evaluacion);
             match(")");
-            if (getContenido() == "{" && evaluacion == true)
+            if (getContenido() == "{")
             {
                 BloqueInstrucciones(evaluacion);
             }
@@ -395,7 +414,7 @@ namespace Sintaxis_2
             if (ejecuta)
             {
                 string cadena = getContenido();
-                cadena = cadena.Replace("\n", Environment.NewLine).Replace("\t", "\t").TrimStart('\"').TrimEnd('\"');
+                cadena = cadena.Replace("\\n", Environment.NewLine).Replace("\\t", "\t").TrimStart('\"').TrimEnd('\"');
                 Console.Write(cadena);
             }
             match(Tipos.Cadena);
@@ -511,10 +530,12 @@ namespace Sintaxis_2
             }
             else if (getClasificacion() == Tipos.Identificador)
             {
+                string variable = getContenido();
                 if (!Existe(getContenido()))
                 {
                     throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
                 }
+                stack.Push(getValor(variable));
                 match(Tipos.Identificador);
             }
             else
