@@ -48,6 +48,35 @@ namespace Sintaxis_2
             Imprime();
         }
 
+        private Variable.TiposDatos getTipo(string nombre)
+        {
+            foreach (Variable v in lista)
+            {
+                if (v.getNombre() == nombre)
+                {
+                    return v.getTiposDatos();
+                }
+            }
+            return Variable.TiposDatos.Char;
+        }
+
+        private Variable.TiposDatos getTipo(float resultado)
+        {
+            if(resultado%1==0)
+            {
+                return Variable.TiposDatos.Float;
+            }
+            else if (resultado < 256)
+            {
+                return Variable.TiposDatos.Char;
+            }
+            else if (resultado < 65536)
+            {
+                return Variable.TiposDatos.Int;
+            }
+            return Variable.TiposDatos.Float;
+        }
+
         private void Imprime()
         {
             log.WriteLine("-----------------");
@@ -280,6 +309,11 @@ namespace Sintaxis_2
             log.WriteLine(" = " + resultado);
             if (ejecuta)
             {
+                Variable.TiposDatos tipoDatoVariable = getTipo(variable);
+                Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
+
+                Console.WriteLine(variable + " = " + tipoDatoVariable);
+                Console.WriteLine(variable + " = " + tipoDatoResultado);
                 Modifica(variable, resultado);
             }
 
@@ -572,6 +606,7 @@ namespace Sintaxis_2
             if (getClasificacion() == Tipos.Numero)
             {
                 log.Write(" " + getContenido());
+                Console.WriteLine(getContenido() + " "+ float.Parse(getContenido()));
                 stack.Push(float.Parse(getContenido()));
                 match(Tipos.Numero);
             }

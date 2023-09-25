@@ -1,5 +1,11 @@
 Autor: David Arturo Gutiérrez Lugo
-22/09/2023 12:56:02 a. m.
-a =  3 5 + 8 * 10 4 - 2 / - = 61
-b =  19 = 19
- 2 % 0 10Error: de sintaxis, la variable <else> no está declarada en la linea 19 columna 13
+22/09/2023 01:53:18 p. m.
+a =  1.5 = 1.5
+-----------------
+V a r i a b l e s
+-----------------
+a Char = 1.5
+b Float = 0
+c Float = 0
+d Float = 0
+-----------------
