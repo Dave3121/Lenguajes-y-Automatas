@@ -65,8 +65,8 @@ namespace Sintaxis_2
         {
             linea = columna = caracter = 1;
             log = new StreamWriter("prueba.log");
-            log.WriteLine("Autor: Guillermo Fernandez Romero");
-            log.WriteLine("Fecha: 3-Mayo-2023 15:09");
+            log.WriteLine("Autor: David Arturo Gutiérrez Lugo");
+            log.WriteLine(DateTime.Now);
             log.AutoFlush = true;
             if (File.Exists("prueba.cpp"))
             {
@@ -81,8 +81,8 @@ namespace Sintaxis_2
         {
             linea = columna = caracter = 1;
             log = new StreamWriter(Path.GetFileNameWithoutExtension(nombre) + ".log");
-            log.WriteLine("Autor: Guillermo Fernandez Romero");
-            log.WriteLine("Fecha: 3-Mayo-2023 15:09");
+            log.WriteLine("Autor: David Arturo Gutiérrez Lugo");
+            log.WriteLine(DateTime.Now);
             log.AutoFlush = true;
             if (Path.GetExtension(nombre) != ".cpp")
             {
