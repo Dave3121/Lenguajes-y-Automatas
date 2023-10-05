@@ -300,12 +300,6 @@ namespace Sintaxis_2
                 Variable.TiposDatos tipoDatoVariable = getTipo(variable);
                 Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
 
-                // Console.WriteLine(variable + " = "+tipoDatoVariable);
-                // Console.WriteLine(resultado + " = "+tipoDatoResultado);
-                // Console.WriteLine("expresion = "+tipoDatoExpresion);
-
-                //Variable.TiposDatos tipoDatoMayor = 
-
                 if (tipoDatoVariable >= tipoDatoResultado)
                 {
                     Modifica(variable, resultado);
@@ -372,7 +366,7 @@ namespace Sintaxis_2
             {
                 ejecuta = Condicion() && ejecuta;
                 match(";");
-                resultado = Incremento();
+                resultado = Incremento(ejecuta);
                 match(")");
                 if (getContenido() == "{")
                 {
@@ -399,18 +393,23 @@ namespace Sintaxis_2
         //Incremento -> Identificador ++ | --
         private float Incremento(bool ejecuta)
         {
+            float resultado=0;
+
             if (!Existe(getContenido()))
             {
                 throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
             }
+            string variable = getContenido();
             match(Tipos.Identificador);
             if (getContenido() == "++")
             {
                 match("++");
+                resultado = getValor(variable) + 1;
             }
             else
             {
                 match("--");
+                resultado = getValor(variable) - 1;
             }
             return 0;
         }
@@ -469,9 +468,8 @@ namespace Sintaxis_2
             match("(");
             if (ejecuta)
             {
-                string cadena = getContenido().TrimStart('"');
-                cadena = cadena.Remove(cadena.Length - 1);
-                cadena = cadena.Replace(@"\n", "\n");
+                string cadena = getContenido().TrimStart('"').TrimEnd('"');
+                cadena = cadena.Replace(@"\n", "\n").Replace(@"\t", "\t");
                 Console.Write(cadena);
             }
             match(Tipos.Cadena);
@@ -482,7 +480,10 @@ namespace Sintaxis_2
                 {
                     throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
                 }
+                if(ejecuta)
+                {
                 Console.Write(getValor(getContenido()));
+                }
                 match(Tipos.Identificador);
             }
             match(")");
