@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 /*
     Requerimiento 1: Implementar la ejecucion del while
     Requerimiento 2: Implemenatr la ejecicion del do - whike
-    Requerimiento 3: Implementar la ejecucion del for
     Requerimiento 4: Marcar errores semánticos
     Requerimiento 5: CAST
 */
@@ -317,17 +316,22 @@ namespace Sintaxis_2
         {
             match("while");
             match("(");
-            Condicion();
-            match(")");
-            if (getContenido() == "{")
+            if(Condicion()==true)
             {
-                BloqueInstrucciones(ejecuta);
+                Condicion();
+                match(")");
+                while(Condicion()==true)
+                {
+                    if (getContenido() == "{")
+                    {
+                        BloqueInstrucciones(ejecuta);
+                    }
+                    else
+                    {
+                        Instruccion(ejecuta);
+                    }
+                }
             }
-            else
-            {
-                Instruccion(ejecuta);
-            }
-
         }
         //Do -> do BloqueInstrucciones | Instruccion while(Condicion)
         private void Do(bool ejecuta)
@@ -411,7 +415,7 @@ namespace Sintaxis_2
                 match("--");
                 resultado = getValor(variable) - 1;
             }
-            return 0;
+            return resultado;
         }
         //Condicion -> Expresion OperadorRelacional Expresion
         private bool Condicion()
