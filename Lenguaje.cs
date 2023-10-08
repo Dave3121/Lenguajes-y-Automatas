@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 /*
-    Requerimiento 1: Implementar la ejecucion del while
     Requerimiento 2: Implemenatr la ejecicion del do - whike
     Requerimiento 4: Marcar errores semánticos
     Requerimiento 5: CAST
@@ -316,22 +315,37 @@ namespace Sintaxis_2
         {
             match("while");
             match("(");
-            if(Condicion()==true)
+
+            int inicia = caracter;
+            int lineaInicio = linea;
+            float resultado = 0;
+            string variable;
+
+            do
             {
-                Condicion();
+                ejecuta = Condicion() && ejecuta;
                 match(")");
-                while(Condicion()==true)
+                if (getContenido() == "{")
                 {
-                    if (getContenido() == "{")
-                    {
-                        BloqueInstrucciones(ejecuta);
-                    }
-                    else
-                    {
-                        Instruccion(ejecuta);
-                    }
+                    BloqueInstrucciones(ejecuta);
+                    variable = getContenido();
+                }
+                else
+                {
+                    Instruccion(ejecuta);
+                    variable = getContenido();
+                }
+                if (ejecuta)
+                {
+                    Modifica(variable, resultado);
+                    archivo.DiscardBufferedData();
+                    caracter = inicia - variable.Length - 1;
+                    archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
+                    nextToken();
+                    linea = lineaInicio;
                 }
             }
+            while (ejecuta);
         }
         //Do -> do BloqueInstrucciones | Instruccion while(Condicion)
         private void Do(bool ejecuta)
@@ -361,10 +375,8 @@ namespace Sintaxis_2
 
             int inicia = caracter;
             int lineaInicio = linea;
-            float resultado = 0;
+            float resultado;
             string variable = getContenido();
-
-            log.WriteLine("For: " + variable);
 
             do
             {
@@ -388,7 +400,6 @@ namespace Sintaxis_2
                     archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
                     nextToken();
                     linea = lineaInicio;
-
                 }
             }
             while (ejecuta);
@@ -397,7 +408,7 @@ namespace Sintaxis_2
         //Incremento -> Identificador ++ | --
         private float Incremento(bool ejecuta)
         {
-            float resultado=0;
+            float resultado = 0;
 
             if (!Existe(getContenido()))
             {
@@ -484,9 +495,9 @@ namespace Sintaxis_2
                 {
                     throw new Error("de sintaxis, la variable <" + getContenido() + "> no está declarada", log, linea, columna);
                 }
-                if(ejecuta)
+                if (ejecuta)
                 {
-                Console.Write(getValor(getContenido()));
+                    Console.Write(getValor(getContenido()));
                 }
                 match(Tipos.Identificador);
             }
