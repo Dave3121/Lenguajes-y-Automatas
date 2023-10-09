@@ -1,3 +1,5 @@
 Autor: David Arturo Gutiérrez Lugo
-09/10/2023 11:37:36 a. m.
- 0 0 0 0 0 0Error: de sintaxis, se espera un <while> en la linea 27 columna 6
+09/10/2023 01:05:16 p. m.
+k =  10 = 10
+k =  1.5 = 1.5
+Error: de semantica, no se puede asignar un <Float> a un <Char> en la linea 10 columna 13

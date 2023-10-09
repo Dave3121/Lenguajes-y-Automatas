@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 /*
     Requerimiento 2: Implemenatr la ejecicion del do - whike
-    Requerimiento 4: Marcar errores semánticos
-    Requerimiento 5: CAST
 */
 
 namespace Sintaxis_2
@@ -304,7 +302,7 @@ namespace Sintaxis_2
                 }
                 else
                 {
-                    throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                    throw new Error("de semantica, no se puede asignar un <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
                 }
             }
             match(";");
@@ -313,31 +311,28 @@ namespace Sintaxis_2
         //While -> while(Condicion) BloqueInstrucciones | Instruccion
         private void While(bool ejecuta)
         {
-            match("while");
-            match("(");
+
 
             int inicia = caracter;
             int lineaInicio = linea;
-            float resultado = 0;
-            string variable;
+            string variable = getContenido();
 
             do
             {
+                match("while");
+                match("(");
                 ejecuta = Condicion() && ejecuta;
                 match(")");
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(ejecuta);
-                    variable = getContenido();
                 }
                 else
                 {
                     Instruccion(ejecuta);
-                    variable = getContenido();
                 }
                 if (ejecuta)
                 {
-                    Modifica(variable, resultado);
                     archivo.DiscardBufferedData();
                     caracter = inicia - variable.Length - 1;
                     archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
@@ -352,13 +347,11 @@ namespace Sintaxis_2
         {
             int inicia = caracter;
             int lineaInicio = linea;
-            float resultado = 0;
-            string variable;
-
-            match("do");
+            string variable = getContenido();
 
             do
             {
+                match("do");
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(ejecuta);
@@ -369,13 +362,11 @@ namespace Sintaxis_2
                 }
                 match("while");
                 match("(");
-                variable = getContenido();
                 ejecuta = Condicion() && ejecuta;
                 match(")");
                 match(";");
                 if (ejecuta)
                 {
-                    Modifica(variable, resultado);
                     archivo.DiscardBufferedData();
                     caracter = inicia - variable.Length - 1;
                     archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
@@ -542,7 +533,16 @@ namespace Sintaxis_2
             {
                 string captura = "" + Console.ReadLine();
                 float resultado = float.Parse(captura);
-                Modifica(variable, resultado);
+                Variable.TiposDatos tipoDatoVariable = getTipo(variable);
+                Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
+                if (tipoDatoVariable >= tipoDatoResultado)
+                {
+                    Modifica(variable, resultado);
+                }
+                else
+                {
+                    throw new Error("de semantica, no se puede asignar un <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                }
             }
             match(")");
             match(";");
@@ -658,7 +658,28 @@ namespace Sintaxis_2
         }
         float castea(float resultado, Variable.TiposDatos tipoDato)
         {
-            return 0;
+            float cast = resultado;
+
+            switch (tipoDato)
+            {
+                case Variable.TiposDatos.Char:
+                    if (resultado >= 256)
+                    {
+                        throw new Error("de semantica, se alcanzó el límite de tamaño para char ", log, linea, columna);
+                    }
+                    resultado = MathF.Round(cast);
+                    cast = resultado % 256;
+                    break;
+                case Variable.TiposDatos.Int:
+                    if (resultado >= 65536)
+                    {
+                        throw new Error("de semantica, se alcanzó el límite de tamaño para int ", log, linea, columna);
+                    }
+                    resultado = MathF.Round(cast);
+                    cast = resultado % 65536;
+                    break;
+            }
+            return cast;
         }
     }
 }
