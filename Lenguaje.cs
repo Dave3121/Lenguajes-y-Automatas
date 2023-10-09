@@ -350,20 +350,40 @@ namespace Sintaxis_2
         //Do -> do BloqueInstrucciones | Instruccion while(Condicion)
         private void Do(bool ejecuta)
         {
+            int inicia = caracter;
+            int lineaInicio = linea;
+            float resultado = 0;
+            string variable;
+
             match("do");
-            if (getContenido() == "{")
+
+            do
             {
-                BloqueInstrucciones(ejecuta);
+                if (getContenido() == "{")
+                {
+                    BloqueInstrucciones(ejecuta);
+                }
+                else
+                {
+                    Instruccion(ejecuta);
+                }
+                match("while");
+                match("(");
+                variable = getContenido();
+                ejecuta = Condicion() && ejecuta;
+                match(")");
+                match(";");
+                if (ejecuta)
+                {
+                    Modifica(variable, resultado);
+                    archivo.DiscardBufferedData();
+                    caracter = inicia - variable.Length - 1;
+                    archivo.BaseStream.Seek(caracter, SeekOrigin.Begin);
+                    nextToken();
+                    linea = lineaInicio;
+                }
             }
-            else
-            {
-                Instruccion(ejecuta);
-            }
-            match("while");
-            match("(");
-            Condicion();
-            match(")");
-            match(";");
+            while (ejecuta);
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstrucciones | Instruccion
 
