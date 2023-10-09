@@ -57,6 +57,7 @@ namespace Sintaxis_2
         };
         protected StreamReader archivo;
         protected StreamWriter log;
+        protected StreamWriter asm;
 
         protected int linea;
         protected int columna;
@@ -65,6 +66,7 @@ namespace Sintaxis_2
         {
             linea = columna = caracter = 1;
             log = new StreamWriter("prueba.log");
+            asm = new StreamWriter("prueba.asm");
             log.WriteLine("Autor: David Arturo Gutiérrez Lugo");
             log.WriteLine(DateTime.Now);
             log.AutoFlush = true;
