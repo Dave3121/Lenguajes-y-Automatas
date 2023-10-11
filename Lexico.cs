@@ -67,9 +67,12 @@ namespace Sintaxis_2
             linea = columna = caracter = 1;
             log = new StreamWriter("prueba.log");
             asm = new StreamWriter("prueba.asm");
+            log.AutoFlush = true;
+            asm.AutoFlush = true;
             log.WriteLine("Autor: David Arturo Gutiérrez Lugo");
             log.WriteLine(DateTime.Now);
-            log.AutoFlush = true;
+            asm.WriteLine("; Autor: David Arturo Gutiérrez Lugo");
+            asm.WriteLine("; " + DateTime.Now);
             if (File.Exists("prueba.cpp"))
             {
                 archivo = new StreamReader("prueba.cpp");
@@ -83,9 +86,13 @@ namespace Sintaxis_2
         {
             linea = columna = caracter = 1;
             log = new StreamWriter(Path.GetFileNameWithoutExtension(nombre) + ".log");
-            log.WriteLine("Autor: David Arturo Gutiérrez Lugo");
-            log.WriteLine(DateTime.Now);
+            asm = new StreamWriter(Path.GetFileNameWithoutExtension(nombre) + ".asm");
             log.AutoFlush = true;
+            asm.AutoFlush = true;
+            log.WriteLine("Autor: David Arturo Gutiérrez Lugo");
+            log.WriteLine("; " + DateTime.Now);
+            asm.WriteLine("; Autor: David Arturo Gutiérrez Lugo");
+            asm.WriteLine("; " + DateTime.Now);
             if (Path.GetExtension(nombre) != ".cpp")
             {
                 throw new Error("El archivo " + nombre + " no tiene extension CPP", log, linea, columna);
@@ -104,12 +111,13 @@ namespace Sintaxis_2
         {
             archivo.Close();
             log.Close();
+            asm.Close();
         }
         private int Columna(char t)
         {
             // WS  L  D  .  =  :  ;  &  |  >  <  !  +  -  *  /  %  "  ' EOF ?  # lmd
-          // WS  L  D  .  =  :  ;  &  |  >  <  !  +  -  *  /  %  "  ' EOF ?  # lmd {  }  \n
-          // 0   1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+            // WS  L  D  .  =  :  ;  &  |  >  <  !  +  -  *  /  %  "  ' EOF ?  # lmd {  }  \n
+            // 0   1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
             if (FinArchivo())
                 return 19;
             else if (t == '\n')
@@ -271,9 +279,9 @@ namespace Sintaxis_2
                     case "public":
                     case "protected": setClasificacion(Tipos.Zona); break;
 
-                    
-                    case "else": 
-                    case "switch": 
+
+                    case "else":
+                    case "switch":
                     case "if": setClasificacion(Tipos.Condicion); break;
 
                     case "do":
@@ -301,6 +309,6 @@ namespace Sintaxis_2
         public bool FinArchivo()
         {
             return archivo.EndOfStream;
-        }
+        }
     }
 }

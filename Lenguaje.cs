@@ -32,6 +32,7 @@ namespace Sintaxis_2
         //Programa  -> Librerias? Variables? Main
         public void Programa()
         {
+            asm.WriteLine("org 100h");
             if (getContenido() == "#")
             {
                 Librerias();
@@ -41,6 +42,7 @@ namespace Sintaxis_2
                 Variables();
             }
             Main(true);
+            asm.WriteLine("ret");
             Imprime();
         }
 
@@ -49,9 +51,11 @@ namespace Sintaxis_2
             log.WriteLine("-----------------");
             log.WriteLine("V a r i a b l e s");
             log.WriteLine("-----------------");
+            asm.WriteLine("; V a r i a b l e s");
             foreach (Variable v in lista)
             {
                 log.WriteLine(v.getNombre() + " " + v.getTipoDato() + " = " + v.getValor());
+                asm.WriteLine(v.getNombre() + " dw 0h");
             }
             log.WriteLine("-----------------");
         }
@@ -242,6 +246,7 @@ namespace Sintaxis_2
                 match("=");
                 Expresion();
                 resultado = stack.Pop();
+                asm.WriteLine("POP AX");
             }
             else if (getClasificacion() == Tipos.IncrementoTermino)
             {
@@ -264,30 +269,35 @@ namespace Sintaxis_2
                     match("+=");
                     Expresion();
                     resultado += stack.Pop();
+                    asm.WriteLine("POP AX");
                 }
                 else if (getContenido() == "-=")
                 {
                     match("-=");
                     Expresion();
                     resultado -= stack.Pop();
+                    asm.WriteLine("POP AX");
                 }
                 else if (getContenido() == "*=")
                 {
                     match("*=");
                     Expresion();
                     resultado *= stack.Pop();
+                    asm.WriteLine("POP AX");
                 }
                 else if (getContenido() == "/=")
                 {
                     match("/=");
                     Expresion();
                     resultado /= stack.Pop();
+                    asm.WriteLine("POP AX");
                 }
                 else if (getContenido() == "%=")
                 {
                     match("%=");
                     Expresion();
                     resultado %= stack.Pop();
+                    asm.WriteLine("POP AX");
                 }
             }
             log.WriteLine(" = " + resultado);
@@ -321,7 +331,7 @@ namespace Sintaxis_2
             {
                 match("while");
                 match("(");
-                ejecuta = Condicion() && ejecuta;
+                ejecuta = Condicion("") && ejecuta;
                 match(")");
                 if (getContenido() == "{")
                 {
@@ -362,7 +372,7 @@ namespace Sintaxis_2
                 }
                 match("while");
                 match("(");
-                ejecuta = Condicion() && ejecuta;
+                ejecuta = Condicion("") && ejecuta;
                 match(")");
                 match(";");
                 if (ejecuta)
@@ -391,7 +401,7 @@ namespace Sintaxis_2
 
             do
             {
-                ejecuta = Condicion() && ejecuta;
+                ejecuta = Condicion("") && ejecuta;
                 match(";");
                 resultado = Incremento(ejecuta);
                 match(")");
@@ -440,7 +450,7 @@ namespace Sintaxis_2
             return resultado;
         }
         //Condicion -> Expresion OperadorRelacional Expresion
-        private bool Condicion()
+        private bool Condicion(string etiqueta)
         {
             Expresion();
             string operador = getContenido();
@@ -448,15 +458,31 @@ namespace Sintaxis_2
             Expresion();
             float R1 = stack.Pop();
             float R2 = stack.Pop();
+            asm.WriteLine("POP BX");
+            asm.WriteLine("POP AX");
+
+            asm.WriteLine("CMP BX, AX");
 
             switch (operador)
             {
-                case "==": return R2 == R1;
-                case ">": return R2 > R1;
-                case ">=": return R2 >= R1;
-                case "<": return R2 < R1;
-                case "<=": return R2 <= R1;
-                default: return R2 != R1;
+                case "==":
+                    asm.WriteLine("JNE "+ etiqueta);
+                    return R2 == R1;
+                case ">":
+                    asm.WriteLine("JBE "+ etiqueta);
+                    return R2 > R1;
+                case ">=":
+                    asm.WriteLine("JB "+ etiqueta);
+                    return R2 >= R1;
+                case "<":
+                    asm.WriteLine("JAE "+ etiqueta);
+                    return R2 < R1;
+                case "<=":
+                    asm.WriteLine("JA "+ etiqueta);
+                    return R2 <= R1;
+                default:
+                    asm.WriteLine("JE "+ etiqueta);
+                    return R2 != R1;
             }
         }
         //If -> if (Condicion) BloqueInstrucciones | Instruccion (else BloqueInstrucciones | Instruccion)?
@@ -464,7 +490,7 @@ namespace Sintaxis_2
         {
             match("if");
             match("(");
-            bool evaluacion = Condicion();
+            bool evaluacion = Condicion("Etiqueta 1");
             match(")");
             if (getContenido() == "{")
             {
@@ -572,7 +598,9 @@ namespace Sintaxis_2
                 Termino();
                 log.Write(" " + operador);
                 float R2 = stack.Pop();
+                asm.WriteLine("POP AX");
                 float R1 = stack.Pop();
+                asm.WriteLine("POP AX");
                 if (operador == "+")
                     stack.Push(R1 + R2);
                 else
@@ -595,11 +623,21 @@ namespace Sintaxis_2
                 Factor();
                 log.Write(" " + operador);
                 float R2 = stack.Pop();
+                asm.WriteLine("POP BX");
                 float R1 = stack.Pop();
+                asm.WriteLine("POP AX");
                 if (operador == "*")
+                {
                     stack.Push(R1 * R2);
+                    asm.WriteLine("MUL BX");
+                    asm.WriteLine("PUSH AX");
+                }
                 else if (operador == "/")
+                {
                     stack.Push(R1 / R2);
+                    asm.WriteLine("DIV BX");
+                    asm.WriteLine("PUSH AX");
+                }
                 else
                     stack.Push(R1 % R2);
             }
@@ -667,7 +705,7 @@ namespace Sintaxis_2
                     {
                         throw new Error("de semantica, se alcanzó el límite de tamaño para char ", log, linea, columna);
                     }
-                    resultado = MathF.Round(cast);
+                    //resultado = MathF.Round(cast);
                     cast = resultado % 256;
                     break;
                 case Variable.TiposDatos.Int:
@@ -675,7 +713,7 @@ namespace Sintaxis_2
                     {
                         throw new Error("de semantica, se alcanzó el límite de tamaño para int ", log, linea, columna);
                     }
-                    resultado = MathF.Round(cast);
+                    //resultado = MathF.Round(cast);
                     cast = resultado % 65536;
                     break;
             }
