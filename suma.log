@@ -1,4 +1,23 @@
 Autor: David Arturo Gutiérrez Lugo
-; 11/10/2023 01:20:49 p. m.
-k =  1.5 = 1.5
-Error: de semantica, no se puede asignar un <Float> a un <Char> en la linea 11 columna 23
+; 16/10/2023 01:50:19 p. m.
+i =  0 = 0
+for: i
+ 10k =  = 0
+ 10k =  = 1
+ 10k =  = 2
+ 10k =  = 3
+ 10k =  = 4
+ 10k =  = 5
+ 10k =  = 6
+ 10k =  = 7
+ 10k =  = 8
+ 10k =  = 9
+ 10k =  = 10
+-----------------
+V a r i a b l e s
+-----------------
+altura Char = 0
+i Char = 10
+j Char = 0
+k Char = 9
+-----------------
