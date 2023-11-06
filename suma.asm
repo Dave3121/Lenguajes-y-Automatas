@@ -1,5 +1,5 @@
 ; Autor: David Arturo Gutiérrez Lugo
-; 05/11/2023 10:48:40 p. m.
+; 06/11/2023 12:37:25 a. m.
 include 'emu8086.inc'
 org 100h
 ; For: 1

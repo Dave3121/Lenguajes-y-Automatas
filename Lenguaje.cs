@@ -290,6 +290,7 @@ namespace Sintaxis_2
                     match("+=");
                     Expresion(primeraVez);
                     resultado += stack.Pop();
+                    asm.WriteLine("ADD AX, "+variable);
                     asm.WriteLine("POP AX");
                 }
                 else if (getContenido() == "-=")
@@ -297,6 +298,7 @@ namespace Sintaxis_2
                     match("-=");
                     Expresion(primeraVez);
                     resultado -= stack.Pop();
+                    asm.WriteLine("SUB AX, "+variable);
                     asm.WriteLine("POP AX");
                 }
                 else if (getContenido() == "*=")
@@ -304,6 +306,7 @@ namespace Sintaxis_2
                     match("*=");
                     Expresion(primeraVez);
                     resultado *= stack.Pop();
+                    asm.WriteLine("MUL BX");
                     asm.WriteLine("POP AX");
                 }
                 else if (getContenido() == "/=")
@@ -311,6 +314,7 @@ namespace Sintaxis_2
                     match("/=");
                     Expresion(primeraVez);
                     resultado /= stack.Pop();
+                    asm.WriteLine("DIV BX");
                     asm.WriteLine("POP AX");
                 }
                 else if (getContenido() == "%=")
