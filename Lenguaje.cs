@@ -272,13 +272,13 @@ namespace Sintaxis_2
                 if (getContenido() == "++")
                 {
                     match("++");
-                    // INC
+                    asm.WriteLine("INC "+variable);
                     resultado = getValor(variable) + 1;
                 }
                 else
                 {
                     match("--");
-                    // DEC
+                    asm.WriteLine("DEC "+variable);
                     resultado = getValor(variable) - 1;
                 }
             }
@@ -326,10 +326,6 @@ namespace Sintaxis_2
             {
                 Variable.TiposDatos tipoDatoVariable = getTipo(variable);
                 Variable.TiposDatos tipoDatoResultado = getTipo(resultado);
-
-                // Console.WriteLine(variable + " = "+tipoDatoVariable);
-                // Console.WriteLine(resultado + " = "+tipoDatoResultado);
-                // Console.WriteLine("expresion = "+tipoDatoExpresion);
 
                 if (tipoDatoExpresion > tipoDatoResultado)
                 {
@@ -594,13 +590,14 @@ namespace Sintaxis_2
                 cadena = cadena.Remove(cadena.Length - 1);
                 cadena = cadena.Replace(@"\n", "\n").Replace(@"\t", "\t");
                 Console.Write(cadena);
-                if(cadena.Contains("\n"))
+                if(cadena.Contains('\n'))
                 {
-                    cadena.Replace(@"\n", "");
+                    cadena=cadena.Trim('\n');
                     asm.WriteLine("printn '"+cadena+"'");
                 }
                 else
                 {
+                    cadena=cadena.Trim('\n');
                     asm.WriteLine("print '"+cadena+"'");
                 }
             }

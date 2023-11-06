@@ -1,5 +1,5 @@
 ; Autor: David Arturo Gutiérrez Lugo
-; 05/11/2023 06:31:01 p. m.
+; 05/11/2023 10:48:40 p. m.
 include 'emu8086.inc'
 org 100h
 ; For: 1
@@ -17,8 +17,7 @@ POP BX
 POP AX
 CMP AX, BX
 JAE FinFor1
-printn '
-Hola'
+printn 'Hola'
 MOV AX, i
 PUSH AX
 POP AX
@@ -26,64 +25,55 @@ POP AX
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
 INC i
 JMP InicioFor1
-printn '
-Hola'
+printn 'Hola'
 POP AX
 ; Asignacion k
 MOV k, AX
