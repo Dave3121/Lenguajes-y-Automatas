@@ -592,8 +592,17 @@ namespace Sintaxis_2
             {
                 string cadena = getContenido().TrimStart('"');
                 cadena = cadena.Remove(cadena.Length - 1);
-                cadena = cadena.Replace(@"\n", "\n");
+                cadena = cadena.Replace(@"\n", "\n").Replace(@"\t", "\t");
                 Console.Write(cadena);
+                if(cadena.Contains("\n"))
+                {
+                    cadena.Replace(@"\n", "");
+                    asm.WriteLine("printn '"+cadena+"'");
+                }
+                else
+                {
+                    asm.WriteLine("print '"+cadena+"'");
+                }
             }
             match(Tipos.Cadena);
             if (getContenido() == ",")
@@ -630,6 +639,7 @@ namespace Sintaxis_2
             {
                 string captura = "" + Console.ReadLine();
                 float resultado = float.Parse(captura);
+                asm.WriteLine("call scan_num");
                 Modifica(variable, resultado);
             }
             match(")");
