@@ -2,15 +2,22 @@
 #include <math.h>
 #include <iostream>
 
-char altura,i,j,k;
+int altura,i,j,k;
 
 void main() // Funcion principal
 {
-    for (i=0; i<10; i++)
+    printf("Hola, ingresa un numero: ");
+    scanf("&i", &i);
+    /*printf("Ingresa un segundo numero: ");
+    scanf("&i",&j);*/
+    printf("\nEl numero es: ", i);
+    //printf("\nEl numero es: ", j);
+
+    /*for (i=0; i<10; i++)
     {
         printf("\nHola");
         k = i;
-    }
+    }*/
     // k = (int)(10);
     // k = 1.5;
     // k = (int)((char)(1.5));
