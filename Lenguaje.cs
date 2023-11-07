@@ -22,7 +22,7 @@ namespace Sintaxis_2
     {
         List<Variable> lista;
         Stack<float> stack;
-        int contIf, contFor, contWhile, contDo;
+        int contIf, contFor/*, contWhile, contDo*/;
 
         Variable.TiposDatos tipoDatoExpresion;
         public Lenguaje()
@@ -263,9 +263,12 @@ namespace Sintaxis_2
                 match("=");
                 Expresion(primeraVez);
                 resultado = stack.Pop();
-                asm.WriteLine("POP AX");
-                asm.WriteLine("; Asignacion "+variable);
-                asm.WriteLine("MOV "+variable+", AX");
+                if(primeraVez)
+                {
+                    asm.WriteLine("POP AX");
+                    asm.WriteLine("; Asignacion "+variable);
+                    asm.WriteLine("MOV "+variable+", AX");
+                }
             }
             else if (getClasificacion() == Tipos.IncrementoTermino)
             {
@@ -275,17 +278,13 @@ namespace Sintaxis_2
                     asm.WriteLine("INC "+variable);
                     resultado = getValor(variable) + 1;
                 }
-                else
+                else if(getContenido()=="--")
                 {
                     match("--");
                     asm.WriteLine("DEC "+variable);
                     resultado = getValor(variable) - 1;
                 }
-            }
-            else if (getClasificacion() == Tipos.IncrementoFactor)
-            {
-                resultado = getValor(variable);
-                if (getContenido() == "+=")
+                else if (getContenido() == "+=")
                 {
                     match("+=");
                     Expresion(primeraVez);
@@ -301,7 +300,11 @@ namespace Sintaxis_2
                     asm.WriteLine("SUB AX, "+variable);
                     asm.WriteLine("POP AX");
                 }
-                else if (getContenido() == "*=")
+            }
+            else if (getClasificacion() == Tipos.IncrementoFactor)
+            {
+                resultado = getValor(variable);
+                if (getContenido() == "*=")
                 {
                     match("*=");
                     Expresion(primeraVez);
@@ -352,13 +355,13 @@ namespace Sintaxis_2
         {
             int inicia = caracter;
             int lineaInicio = linea;
-            string etiquetaInicio = "InicioWhile"+contWhile;
-            string etiquetaFin = "FinWhile"+contWhile;
+            //string etiquetaInicio = "InicioWhile"/*+contWhile*/;
+            //string etiquetaFin = "FinWhile"/*+contWhile*/;
 
             log.WriteLine("while: ");
             do
             {
-                asm.WriteLine("; While: "+contWhile);
+                asm.WriteLine("; While: "/*+contWhile*/);
                 match("while");
                 match("(");
                 ejecuta = Condicion("",primeraVez) && ejecuta;
@@ -603,12 +606,7 @@ namespace Sintaxis_2
                 if(cadena.Contains('\n'))
                 {
                     cadena=cadena.Trim('\n');
-                    asm.WriteLine("print '"+cadena+"'");
-                }
-                else
-                {
-                    cadena=cadena.Trim('\n');
-                    asm.WriteLine("print '"+cadena+"'");
+                    asm.WriteLine("printn '"+cadena+"'");
                 }
             }
             match(Tipos.Cadena);
@@ -648,10 +646,10 @@ namespace Sintaxis_2
                 string captura = "" + Console.ReadLine();
                 float resultado = float.Parse(captura);
                 asm.WriteLine("call scan_num");
-                Modifica(variable, resultado);
                 asm.WriteLine("MOV "+variable+", CX");
-                asm.WriteLine("MOV AX,CX");
+                asm.WriteLine("ADD AX,CX");
                 asm.WriteLine("printn ''");
+                Modifica(variable, resultado);
             }
             match(")");
             match(";");

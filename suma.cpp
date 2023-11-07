@@ -2,17 +2,10 @@
 #include <math.h>
 #include <iostream>
 
-int altura,i,j,k;
+char altura,i,j,k;
 
 void main() // Funcion principal
 {
-    printf("Hola, ingresa un numero: ");
-    scanf("&i", &i);
-    /*printf("Ingresa un segundo numero: ");
-    scanf("&i",&j);*/
-    printf("\nEl numero es: ", i);
-    //printf("\nEl numero es: ", j);
-
     /*for (i=0; i<10; i++)
     {
         printf("\nHola");
@@ -35,7 +28,7 @@ void main() // Funcion principal
     */
     //*8 - (10-4)/2;
 
-    /*
+    
     printf("\nAltura: ");
     scanf("&i",&altura);
 
@@ -51,7 +44,7 @@ void main() // Funcion principal
         }
         printf("\n");
     }
-    printf("\nwhile:\n");
+    /*printf("\nwhile:\n");
     i = 1;
     while (i <= altura)
     {
@@ -66,8 +59,8 @@ void main() // Funcion principal
         }
         i++;
         printf("\n");
-    }
-    printf("\ndo:\n");
+    }*/
+    /*printf("\ndo:\n");
     i = 1;
     do
     {

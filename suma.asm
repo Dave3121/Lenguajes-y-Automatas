@@ -1,14 +1,318 @@
 ; Autor: David Arturo Gutiérrez Lugo
-; 06/11/2023 11:14:52 p. m.
+; 07/11/2023 02:26:42 a. m.
 include 'emu8086.inc'
 org 100h
-print 'Hola, ingresa un numero: '
+printn 'Altura: '
 call scan_num
-MOV i, CX
-MOV AX,CX
+MOV altura, CX
+ADD AX,CX
 printn ''
-print 'El numero es: '
-call print_num
+printn 'for:'
+; For: 1
+MOV AX, 1
+PUSH AX
+POP AX
+; Asignacion i
+MOV i, AX
+InicioFor1:
+MOV AX, i
+PUSH AX
+MOV AX, altura
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JA FinFor1
+; For: 2
+MOV AX, 250
+PUSH AX
+POP AX
+; Asignacion j
+MOV j, AX
+InicioFor2:
+MOV AX, j
+PUSH AX
+MOV AX, 250
+PUSH AX
+MOV AX, i
+PUSH AX
+POP BX
+POP AX
+ADD AX, BX
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JAE FinFor2
+; if: 1
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif1
+JMP Eif1
+Eif1:
+INC j
+JMP InicioFor2
+; if: 2
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif2
+JMP Eif2
+Eif2:
+FinFor2:
+printn ''
+INC i
+JMP InicioFor1
+; if: 3
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif3
+JMP Eif3
+Eif3:
+; if: 4
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif4
+JMP Eif4
+Eif4:
+; if: 5
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif5
+JMP Eif5
+Eif5:
+FinFor3:
+printn ''
+; if: 6
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif6
+JMP Eif6
+Eif6:
+; if: 7
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif7
+JMP Eif7
+Eif7:
+; if: 8
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif8
+JMP Eif8
+Eif8:
+; if: 9
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif9
+JMP Eif9
+Eif9:
+FinFor4:
+printn ''
+; if: 10
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif10
+JMP Eif10
+Eif10:
+; if: 11
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif11
+JMP Eif11
+Eif11:
+; if: 12
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif12
+JMP Eif12
+Eif12:
+; if: 13
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif13
+JMP Eif13
+Eif13:
+; if: 14
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif14
+JMP Eif14
+Eif14:
+FinFor5:
+printn ''
+; if: 15
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE Eif15
+JMP Eif15
+Eif15:
+FinFor6:
+FinFor1:
 int 20h
 RET
 define_scan_num
