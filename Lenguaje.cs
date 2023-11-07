@@ -900,6 +900,7 @@ namespace Sintaxis_2
             switch (tipoDato)
             {
                 case Variable.TiposDatos.Char: return MathF.Round(resultado) % 256;
+                asm.WriteLine();
                 case Variable.TiposDatos.Int: return MathF.Round(resultado) % 65536;
             }
             return resultado;
