@@ -6,11 +6,11 @@ char altura,i,j,k;
 
 void main() // Funcion principal
 {
-    /*for (i=0; i<10; i++)
+    for (i=0; i<10; i++)
     {
         printf("\nHola");
         k = i;
-    }*/
+    }
     // k = (int)(10);
     // k = 1.5;
     // k = (int)((char)(1.5));
@@ -29,10 +29,14 @@ void main() // Funcion principal
     //*8 - (10-4)/2;
 
     
-    printf("\nAltura: ");
-    scanf("&i",&altura);
+    /*printf("\nAltura: ");
+    scanf("&i",&altura);*/
 
-    printf("\nfor:\n");
+    /*printf("El segundo numero: ");
+    scanf("&i",&i);
+    j=altura%i;
+    printf("El resultado es: ",j);*/
+    /*printf("\nfor:\n");
     for (i = 1; i <= altura; i++)
     {
         for (j = 250; j < 250+i; j++)
@@ -43,7 +47,7 @@ void main() // Funcion principal
                 printf("+");
         }
         printf("\n");
-    }
+    }*/
     /*printf("\nwhile:\n");
     i = 1;
     while (i <= altura)
@@ -77,4 +81,12 @@ void main() // Funcion principal
         printf("\n");
     } while (i <= altura);
     */
+   /*if(altura<=5)
+   {
+    printf("Hola");
+   }
+   else
+   {
+    printf("Adios");
+   }*/
 }
