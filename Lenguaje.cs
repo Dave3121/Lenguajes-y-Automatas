@@ -30,14 +30,14 @@ namespace Sintaxis_2
             lista = new List<Variable>();
             stack = new Stack<float>();
             tipoDatoExpresion = Variable.TiposDatos.Char;
-            contIf = contFor = 1;
+            contIf = contFor = contWhile = contDo = 1;
         }
         public Lenguaje(string nombre) : base(nombre)
         {
             lista = new List<Variable>();
             stack = new Stack<float>();
             tipoDatoExpresion = Variable.TiposDatos.Char;
-            contIf = contFor = 1;
+            contIf = contFor = contWhile = contDo = 1;
         }
 
         //Programa  -> Librerias? Variables? Main
@@ -227,7 +227,7 @@ namespace Sintaxis_2
             }
             else if (getContenido() == "if")
             {
-                If(ejecuta);
+                If(ejecuta,primeraVez);
             }
             else if (getContenido() == "while")
             {
@@ -272,16 +272,23 @@ namespace Sintaxis_2
             }
             else if (getClasificacion() == Tipos.IncrementoTermino)
             {
+                resultado = getValor(variable);
                 if (getContenido() == "++")
                 {
                     match("++");
-                    asm.WriteLine("INC " + variable);
+                    if(primeraVez)
+                    {
+                        asm.WriteLine("INC " + variable);
+                    }
                     resultado = getValor(variable) + 1;
                 }
                 else if (getContenido() == "--")
                 {
                     match("--");
-                    asm.WriteLine("DEC " + variable);
+                    if(primeraVez)
+                    {
+                        asm.WriteLine("DEC " + variable);
+                    }
                     resultado = getValor(variable) - 1;
                 }
                 else if (getContenido() == "+=")
@@ -289,16 +296,22 @@ namespace Sintaxis_2
                     match("+=");
                     Expresion(primeraVez);
                     resultado += stack.Pop();
-                    asm.WriteLine("ADD AX, " + variable);
-                    asm.WriteLine("POP AX");
+                    if(primeraVez)
+                    {
+                        asm.WriteLine("ADD AX, " + variable);
+                        asm.WriteLine("POP AX");
+                    }
                 }
                 else if (getContenido() == "-=")
                 {
                     match("-=");
                     Expresion(primeraVez);
                     resultado -= stack.Pop();
-                    asm.WriteLine("SUB AX, " + variable);
-                    asm.WriteLine("POP AX");
+                    if(primeraVez)
+                    {
+                        asm.WriteLine("SUB AX, " + variable);
+                        asm.WriteLine("POP AX");
+                    }
                 }
             }
             else if (getClasificacion() == Tipos.IncrementoFactor)
@@ -309,24 +322,33 @@ namespace Sintaxis_2
                     match("*=");
                     Expresion(primeraVez);
                     resultado *= stack.Pop();
-                    asm.WriteLine("MUL BX");
-                    asm.WriteLine("POP AX");
+                    if(primeraVez)
+                    {
+                        asm.WriteLine("MUL "+variable);
+                        asm.WriteLine("POP AX");
+                    }
                 }
                 else if (getContenido() == "/=")
                 {
                     match("/=");
                     Expresion(primeraVez);
                     resultado /= stack.Pop();
-                    asm.WriteLine("DIV BX");
-                    asm.WriteLine("POP AX");
+                    if(primeraVez)
+                    {
+                        asm.WriteLine("DIV "+variable);
+                        asm.WriteLine("POP DX");
+                    }
                 }
                 else if (getContenido() == "%=")
                 {
                     match("%=");
                     Expresion(primeraVez);
                     resultado %= stack.Pop();
-                    asm.WriteLine("DIV BX");
-                    asm.WriteLine("POP DX");
+                    if(primeraVez)
+                    {
+                        asm.WriteLine("DIV BX");
+                        asm.WriteLine("POP DX");
+                    }
                 }
             }
             log.WriteLine(" = " + resultado);
@@ -345,7 +367,7 @@ namespace Sintaxis_2
                 }
                 else
                 {
-                    throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                    throw new Error("de semántica, no se puede asignar un <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
                 }
             }
             match(";");
@@ -533,7 +555,7 @@ namespace Sintaxis_2
                     }
                     else
                     {
-                        throw new Error("de semantica, no se puede asignar in <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
+                        throw new Error("de semántica, no se puede asignar un <" + tipoDatoResultado + "> a un <" + tipoDatoVariable + ">", log, linea, columna);
                     }
                     archivo.DiscardBufferedData();
                     caracter = inicia - variable.Length - 1;
@@ -553,7 +575,7 @@ namespace Sintaxis_2
         }
 
         //Incremento -> Identificador ++ | --
-        private float Incremento(bool ejecuta)
+        private float Incremento(bool ejecuta, bool primeraVez)
         {
             if (!Existe(getContenido()))
             {
@@ -611,9 +633,8 @@ namespace Sintaxis_2
             }
         }
         //If -> if (Condicion) BloqueInstrucciones | Instruccion (else BloqueInstrucciones | Instruccion)?
-        private void If(bool ejecuta)
+        private void If(bool ejecuta, bool primeraVez)
         {
-            bool primeraVez = true;
             match("if");
             match("(");
             if (primeraVez)
@@ -649,16 +670,15 @@ namespace Sintaxis_2
                 }
                 if (primeraVez)
                 {
-                    asm.WriteLine("JNE " + etiqueta);
+                    asm.WriteLine("JMP " + etiqueta);
                     asm.WriteLine(etiqueta + ":");
                 }
             }
             primeraVez = false;
         }
         //Printf -> printf(cadena(,Identificador)?);
-        private void Printf(bool ejecuta)
+        private void Printf(bool ejecuta, bool primeraVez)
         {
-            bool primeraVez=true;
             match("printf");
             match("(");
             if (ejecuta)
@@ -667,8 +687,6 @@ namespace Sintaxis_2
                 cadena = cadena.Remove(cadena.Length - 1);
                 cadena = cadena.Replace(@"\n", "\n").Replace(@"\t", "\t");
                 Console.Write(cadena);
-                if (primeraVez)
-                {
                     if (cadena.Contains('\n'))
                     {
                         cadena = cadena.Trim('\n');
@@ -679,7 +697,6 @@ namespace Sintaxis_2
                         cadena = cadena.Trim('\n');
                         asm.WriteLine("printn '" + cadena + "'");
                     }
-                }
             }
             match(Tipos.Cadena);
             if (getContenido() == ",")
@@ -696,12 +713,11 @@ namespace Sintaxis_2
                 }
                 match(Tipos.Identificador);
             }
-            primeraVez = false;
             match(")");
             match(";");
         }
         //Scanf -> scanf(cadena,&Identificador);
-        private void Scanf(bool ejecuta)
+        private void Scanf(bool ejecuta, bool primeraVez)
         {
             match("scanf");
             match("(");
@@ -900,7 +916,6 @@ namespace Sintaxis_2
             switch (tipoDato)
             {
                 case Variable.TiposDatos.Char: return MathF.Round(resultado) % 256;
-                asm.WriteLine();
                 case Variable.TiposDatos.Int: return MathF.Round(resultado) % 65536;
             }
             return resultado;
