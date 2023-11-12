@@ -7,33 +7,28 @@ int a, b;
 
 void main() // Funcion principal
 {
-    /*a = 258;
+    a = 258;
     a = (char)(a);
     a += 8;
     a *= 10;
     a /= 100;
-    printf("Valor Casteado de a: ", a);*/
+    printf("Valor Casteado de a: ", a);
     printf("\nDigite el valor de altura: ");
     scanf("&i", &altura);
-    do
-    {
-        printf("Hola\n");
-        i++;
-    }while(i<altura);
 
     /*printf("\nfor:\n");
     for (i = 1; i <= altura; i++)
     {
         printf("\t");
         for (j = 250; j < 250 + i; j++)
-        {*/
-            /*if (j % 2 == 0)
+        {
+            if (j % 2 == 0)
                 printf("-");
             else
-                printf("+");*/
-        /*}
+                printf("+");
+        }
         printf("\n");
-    }
+    }*/
     printf("\nwhile:\n");
     i = 1;
     while (i <= altura)
@@ -51,7 +46,7 @@ void main() // Funcion principal
         i++;
         printf("\n");
     }
-    printf("\ndo:\n");
+    /*printf("\ndo:\n");
     i = 1;
     do
     {
