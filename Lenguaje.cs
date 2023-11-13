@@ -453,8 +453,7 @@ namespace Sintaxis_2
                 }
                 if(primeraVez)
                 {
-                    asm.WriteLine("JMP "+etiquetaInicio);
-                    asm.WriteLine(etiquetaFin + ":");
+                    asm.WriteLine("JNE " + etiquetaInicio);
                 }
                 primeraVez=false;
             }
@@ -739,7 +738,7 @@ namespace Sintaxis_2
                     }
                     else
                     {
-                        cadena = cadena.Trim('\n');
+                        cadena = cadena.Replace(@"\n", "");
                         asm.WriteLine("print '" + cadena + "'");
                     }
                 }

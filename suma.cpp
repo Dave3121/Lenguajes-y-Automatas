@@ -28,7 +28,7 @@ void main() // Funcion principal
                 printf("+");
         }
         printf("\n");
-    }
+    }*/
     printf("\nwhile:\n");
     i = 1;
     while (i <= altura)
@@ -46,7 +46,7 @@ void main() // Funcion principal
         i++;
         printf("\n");
     }
-    printf("\ndo:\n");
+    /*printf("\ndo:\n");
     i = 1;
     do
     {

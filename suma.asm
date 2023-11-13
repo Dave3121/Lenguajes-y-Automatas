@@ -1,5 +1,9 @@
 ; Autor: David Arturo Gutiérrez Lugo
+<<<<<<< HEAD
 ; 12/11/2023 08:55:07 p. m.
+=======
+; 12/11/2023 12:48:39 a. m.
+>>>>>>> 4db373aab7495083a1af5bcda87a8e04d4c1f369
 include 'emu8086.inc'
 org 100h
 MOV AX, 258
@@ -41,19 +45,31 @@ DIV BX
 MOV a, AX
 print 'Valor Casteado de a: '
 call print_num
+<<<<<<< HEAD
 printn ''
+=======
+>>>>>>> 4db373aab7495083a1af5bcda87a8e04d4c1f369
 printn 'Digite el valor de altura: '
 call scan_num
 MOV altura, CX
 printn ''
+<<<<<<< HEAD
 printn 'for:'
 ; For: 1
+=======
+printn 'while:'
+>>>>>>> 4db373aab7495083a1af5bcda87a8e04d4c1f369
 MOV AX, 1
 PUSH AX
 POP AX
 ; Asignacion i
 MOV i, AX
+<<<<<<< HEAD
 InicioFor1:
+=======
+; While: 1
+InicioWhile1:
+>>>>>>> 4db373aab7495083a1af5bcda87a8e04d4c1f369
 MOV AX, i
 PUSH AX
 MOV AX, altura
@@ -61,6 +77,7 @@ PUSH AX
 POP BX
 POP AX
 CMP AX, BX
+<<<<<<< HEAD
 JA FinFor1
 print '	'
 ; For: 2
@@ -127,6 +144,8 @@ PUSH AX
 POP BX
 POP AX
 CMP AX, BX
+=======
+>>>>>>> 4db373aab7495083a1af5bcda87a8e04d4c1f369
 JA FinWhile1
 print '	'
 MOV AX, 250
@@ -150,7 +169,11 @@ POP BX
 POP AX
 CMP AX, BX
 JAE FinWhile2
+<<<<<<< HEAD
 ; If: 2
+=======
+; If: 1
+>>>>>>> 4db373aab7495083a1af5bcda87a8e04d4c1f369
 MOV AX, j
 PUSH AX
 MOV AX, 2
@@ -164,6 +187,7 @@ PUSH AX
 POP BX
 POP AX
 CMP AX, BX
+<<<<<<< HEAD
 JNE ElseIf2
 print '-'
 JMP FinElse2
@@ -243,6 +267,23 @@ CMP AX, BX
 JA FinDo1
 JMP InicioDo1
 FinDo1:
+=======
+JNE ElseIf1
+print '-'
+JMP FinElse1
+ElseIf1:
+print '+'
+FinElse1:
+INC j
+MOV AX, while
+JMP InicioWhile2
+FinWhile2:
+INC i
+printn ''
+MOV AX, while
+JMP InicioWhile1
+FinWhile1:
+>>>>>>> 4db373aab7495083a1af5bcda87a8e04d4c1f369
 int 20h
 RET
 define_scan_num
