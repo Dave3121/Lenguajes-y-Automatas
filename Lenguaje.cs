@@ -391,31 +391,32 @@ namespace Sintaxis_2
         //While -> while(Condicion) BloqueInstrucciones | Instruccion
         private void While(bool ejecuta, bool primeraVez)
         {
-            string etiquetaInicio = "InicioWhile" + contWhile;
-            if (primeraVez)
+            int inicia = caracter;
+            int lineaInicio = linea;
+            string variable = getContenido();
+            float resultado=0;
+            string etiquetaInicio="InicioWhile"+contWhile;
+
+            log.WriteLine("while: ");
+            if(primeraVez)
             {
                 asm.WriteLine("; While: " + contWhile);
                 asm.WriteLine(etiquetaInicio + ":");
             }
-            log.WriteLine("while: ");
-            int inicia = caracter;
-            int lineaInicio = linea;
-            float resultado = 0;
-            string variable = getContenido();
-            string etiquetaFin = "FinWhile" + contWhile++;
+            string etiquetaFin="FinWhile"+contWhile++;
             do
             {
                 match("while");
                 match("(");
-                ejecuta = Condicion(etiquetaFin, primeraVez) && ejecuta;
+                ejecuta = Condicion(etiquetaFin,primeraVez) && ejecuta;
                 match(")");
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones(ejecuta, primeraVez);
+                    BloqueInstrucciones(ejecuta,primeraVez);
                 }
                 else
                 {
-                    Instruccion(ejecuta, primeraVez);
+                    Instruccion(ejecuta,primeraVez);
                 }
                 if (getValor(variable) < resultado)
                 {
@@ -450,13 +451,12 @@ namespace Sintaxis_2
                     linea = lineaInicio;
 
                 }
-                if (primeraVez)
+                if(primeraVez)
                 {
-                    asm.WriteLine("MOV AX, " + variable);
                     asm.WriteLine("JMP "+etiquetaInicio);
                     asm.WriteLine(etiquetaFin + ":");
                 }
-                primeraVez = false;
+                primeraVez=false;
             }
             while (ejecuta);
         }
@@ -748,19 +748,24 @@ namespace Sintaxis_2
             {
                 string cadena = getContenido().TrimStart('"');
                 cadena = cadena.Remove(cadena.Length - 1);
-                cadena = cadena.Replace(@"\n", "\n").Replace(@"\t", "\t");
-                Console.Write(cadena);
+                string cadenaEnsamblador=cadena.Replace(@"\n", "\n").Replace(@"\t", "\t");
                 if(primeraVez)
                 {
                     if (cadena.Contains('\n'))
                     {
                         cadena = cadena.Trim('\n');
-                        asm.WriteLine("printn '" + cadena + "'");
+                        asm.WriteLine("printn ''");
+                        asm.WriteLine("print '" + cadenaEnsamblador + "'");
+                    }
+                    else if(cadena.Contains('\t'))
+                    {
+                        cadena = cadena.Trim('\n');
+                        asm.WriteLine("print '  " + cadenaEnsamblador + "'");
                     }
                     else
                     {
                         cadena = cadena.Trim('\n');
-                        asm.WriteLine("print '" + cadena + "'");
+                        asm.WriteLine("print '"+cadenaEnsamblador+"'");
                     }
                 }
             }
@@ -778,6 +783,7 @@ namespace Sintaxis_2
                     if(primeraVez)
                     {
                         asm.WriteLine("call print_num");
+                        asm.WriteLine("printn ''");
                     }
                 }
                 match(Tipos.Identificador);

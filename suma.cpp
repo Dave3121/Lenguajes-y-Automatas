@@ -16,7 +16,7 @@ void main() // Funcion principal
     printf("\nDigite el valor de altura: ");
     scanf("&i", &altura);
 
-    /*printf("\nfor:\n");
+    printf("\nfor:\n");
     for (i = 1; i <= altura; i++)
     {
         printf("\t");
@@ -28,7 +28,7 @@ void main() // Funcion principal
                 printf("+");
         }
         printf("\n");
-    }*/
+    }
     printf("\nwhile:\n");
     i = 1;
     while (i <= altura)
@@ -46,7 +46,7 @@ void main() // Funcion principal
         i++;
         printf("\n");
     }
-    /*printf("\ndo:\n");
+    printf("\ndo:\n");
     i = 1;
     do
     {
@@ -62,5 +62,5 @@ void main() // Funcion principal
         } while (j < 250 + i);
         i++;
         printf("\n");
-    } while (i <= altura);*/
+    } while (i <= altura);
 }

@@ -1,5 +1,5 @@
 ; Autor: David Arturo Gutiérrez Lugo
-; 12/11/2023 12:48:39 a. m.
+; 12/11/2023 08:55:07 p. m.
 include 'emu8086.inc'
 org 100h
 MOV AX, 258
@@ -41,10 +41,77 @@ DIV BX
 MOV a, AX
 print 'Valor Casteado de a: '
 call print_num
+printn ''
 printn 'Digite el valor de altura: '
 call scan_num
 MOV altura, CX
 printn ''
+printn 'for:'
+; For: 1
+MOV AX, 1
+PUSH AX
+POP AX
+; Asignacion i
+MOV i, AX
+InicioFor1:
+MOV AX, i
+PUSH AX
+MOV AX, altura
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JA FinFor1
+print '	'
+; For: 2
+MOV AX, 250
+PUSH AX
+POP AX
+; Asignacion j
+MOV j, AX
+InicioFor2:
+MOV AX, j
+PUSH AX
+MOV AX, 250
+PUSH AX
+MOV AX, i
+PUSH AX
+POP BX
+POP AX
+ADD AX, BX
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JAE FinFor2
+; If: 1
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE ElseIf1
+print '-'
+JMP FinElse1
+ElseIf1:
+print '+'
+FinElse1:
+INC j
+JMP InicioFor2
+FinFor2:
+print '
+'
+INC i
+JMP InicioFor1
+FinFor1:
 printn 'while:'
 MOV AX, 1
 PUSH AX
@@ -83,7 +150,7 @@ POP BX
 POP AX
 CMP AX, BX
 JAE FinWhile2
-; If: 1
+; If: 2
 MOV AX, j
 PUSH AX
 MOV AX, 2
@@ -97,21 +164,85 @@ PUSH AX
 POP BX
 POP AX
 CMP AX, BX
-JNE ElseIf1
+JNE ElseIf2
 print '-'
-JMP FinElse1
-ElseIf1:
+JMP FinElse2
+ElseIf2:
 print '+'
-FinElse1:
+FinElse2:
 INC j
-MOV AX, while
 JMP InicioWhile2
 FinWhile2:
 INC i
-printn ''
-MOV AX, while
+print '
+'
 JMP InicioWhile1
 FinWhile1:
+printn 'do:'
+MOV AX, 1
+PUSH AX
+POP AX
+; Asignacion i
+MOV i, AX
+; Do: 1
+InicioDo1:
+print '	'
+MOV AX, 250
+PUSH AX
+POP AX
+; Asignacion j
+MOV j, AX
+; Do: 2
+InicioDo2:
+; If: 3
+MOV AX, j
+PUSH AX
+MOV AX, 2
+PUSH AX
+POP BX
+POP AX
+DIV  BX
+PUSH DX
+MOV AX, 0
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JNE ElseIf3
+print '-'
+JMP FinElse3
+ElseIf3:
+print '+'
+FinElse3:
+INC j
+MOV AX, j
+PUSH AX
+MOV AX, 250
+PUSH AX
+MOV AX, i
+PUSH AX
+POP BX
+POP AX
+ADD AX, BX
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JAE FinDo2
+JMP InicioDo2
+FinDo2:
+INC i
+printn ''
+MOV AX, i
+PUSH AX
+MOV AX, altura
+PUSH AX
+POP BX
+POP AX
+CMP AX, BX
+JA FinDo1
+JMP InicioDo1
+FinDo1:
 int 20h
 RET
 define_scan_num
