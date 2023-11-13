@@ -46,7 +46,7 @@ void main() // Funcion principal
         i++;
         printf("\n");
     }
-    /*printf("\ndo:\n");
+    printf("\ndo:\n");
     i = 1;
     do
     {
