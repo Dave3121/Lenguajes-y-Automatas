@@ -28,7 +28,7 @@ void main() // Funcion principal
                 printf("+");
         }
         printf("\n");
-    }*/
+    }
     printf("\nwhile:\n");
     i = 1;
     while (i <= altura)
